@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_active_periods",
+  "info": {
+    "displayName": "activePeriod"
+  },
+  "options": {},
+  "attributes": {
+    "validFrom": {
+      "type": "date"
+    },
+    "validTo": {
+      "type": "date"
+    }
+  },
+  "config": {}
+}
