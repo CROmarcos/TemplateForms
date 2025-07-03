@@ -14,7 +14,7 @@ export interface SharedActivePeriod extends Struct.ComponentSchema {
 export interface SharedAuthor extends Struct.ComponentSchema {
   collectionName: 'components_shared_authors';
   info: {
-    displayName: 'author';
+    displayName: 'signature';
   };
   attributes: {
     createdAtTime: Schema.Attribute.DateTime;

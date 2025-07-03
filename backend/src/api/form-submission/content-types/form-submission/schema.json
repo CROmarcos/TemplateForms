@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "form_submissions",
+  "info": {
+    "singularName": "form-submission",
+    "pluralName": "form-submissions",
+    "displayName": "Form Submission"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "template": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::form-template.form-template"
+    },
+    "values": {
+      "type": "json"
+    },
+    "submittedBy": {
+      "type": "component",
+      "component": "shared.author",
+      "repeatable": false
+    },
+    "confirmation": {
+      "type": "component",
+      "component": "shared.author",
+      "repeatable": false
+    }
+  }
+}
