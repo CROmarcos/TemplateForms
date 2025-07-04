@@ -3,7 +3,6 @@ import { validateUniqueTemplateCode, deactivateAllOtherTemplates } from '../../u
 
 export default {
   async beforeCreate(event) {
-    strapi.log.info("Before create pozvan")
     const data = event.params.data as FormTemplateData;
 
     const existingDraft = await strapi.db.query('api::form-template.form-template').findOne({
@@ -22,7 +21,6 @@ export default {
   },
 
   async beforeUpdate(event) {
-    strapi.log.info("Before update pozvan")
     const { data, where } = event.params;
     const formData = data as FormTemplateData;
 
