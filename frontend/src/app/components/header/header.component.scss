@@ -1,0 +1,17 @@
+.header-container {
+    width: 100%;
+    height: 50px;
+    background-color: rgb(14, 6, 89);
+    color: whitesmoke;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 600px) {
+        height: 40px;
+        font-size: 20px;
+    }
+}
