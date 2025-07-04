@@ -440,9 +440,7 @@ export interface ApiFormTemplateFormTemplate
       Schema.Attribute.Private;
     mode: Schema.Attribute.Enumeration<['TEORIJSKI', 'PRAKTICNI']>;
     publishedAt: Schema.Attribute.DateTime;
-    templateCode: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+    templateCode: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
