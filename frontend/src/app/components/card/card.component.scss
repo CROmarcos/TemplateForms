@@ -1,9 +1,11 @@
 mat-card {
     width: 750px;
-    height: 300px;
+    max-height: 700px;
     border: rgb(14, 6, 89) 2pt solid;
     border-radius: 2%;
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
 
     &-header {
@@ -12,10 +14,42 @@ mat-card {
         border-bottom: rgb(14, 6, 89) 2pt solid;
         font-size: 18pt;
     }
+
+    &-content {
+        position: relative;
+        height: fit-content;
+        padding-right: 8px;
+        flex: 1 1 auto;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 6px;
+
+            &-thumb {
+                background-color: #aaa;
+                border-radius: 3px;
+            }
+        }
+    }
+
+    &-footer {
+        height: 60px;
+        padding: 16px;
+        display: flex;
+        justify-content: flex-end;
+        z-index: 1;
+    }
 }
 
 .question-item {
     background-color: lightyellow;
     border: 1px solid black;
     padding: 10px;
+}
+
+.fab {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    z-index: 10;
 }
