@@ -1,8 +1,21 @@
 <main class="main">
   <app-header></app-header>
-  <div class="content">
-    <app-card text="1"></app-card>
-    <app-card text="2"></app-card>
+  <div class="layout">
+    <div class="side-panel">
+      <ul>
+        <li *ngFor="let card of cards">
+          <button (click)="selectCard(card)" (keydown.enter)="selectCard(card)" [ngClass]="{ active: selectedCard?.id === card.id }">
+            {{ card.text }}
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div class="center-panel">
+      <ng-container *ngIf="selectedCard as card">
+        <app-card [text]="card.text"></app-card>
+      </ng-container>
+    </div>
+    <div class="side-panel"></div>
   </div>
 </main>
 
