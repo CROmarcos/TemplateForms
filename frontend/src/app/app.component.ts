@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { CardComponent } from './components/card/card.component';
+import { CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-root',

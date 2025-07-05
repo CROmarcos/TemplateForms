@@ -1,11 +1,26 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-card',
-  imports: [],
+  imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, DragDropModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss'
 })
 export class CardComponent {
   @Input() text: string = '';
+
+  questions = [
+    'pitanje A',
+    'pitanje B',
+    'pitanje C'
+  ];
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.questions, event.previousIndex, event.currentIndex);
+  }
 }

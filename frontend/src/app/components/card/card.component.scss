@@ -1,6 +1,21 @@
-.container {
-    width: 500px;
+mat-card {
+    width: 750px;
     height: 300px;
-    border: rgb(14,6,89) 2pt solid;
+    border: rgb(14, 6, 89) 2pt solid;
     border-radius: 2%;
+    margin-top: 10px;
+    overflow: hidden;
+
+    &-header {
+        width: 100%;
+        height: 50px;
+        border-bottom: rgb(14, 6, 89) 2pt solid;
+        font-size: 18pt;
+    }
+}
+
+.question-item {
+    background-color: lightyellow;
+    border: 1px solid black;
+    padding: 10px;
 }
