@@ -34,4 +34,15 @@ export class AppComponent {
       }
     }
   }
+
+  addNewGroup() {
+    console.log("Add new group")
+    const newCard = {
+      id: this.cards.length + 1,
+      text: `Grupa ${this.cards.length + 1}`
+    };
+
+    this.cards.push(newCard);
+    this.selectedCard = newCard;
+  }
 }
