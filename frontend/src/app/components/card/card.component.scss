@@ -46,6 +46,9 @@ mat-card {
     background-color: lightyellow;
     border: 1px solid black;
     padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .fab {

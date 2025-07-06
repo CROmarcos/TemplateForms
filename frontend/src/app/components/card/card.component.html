@@ -12,8 +12,14 @@
 
     <mat-card-content>
         <div cdkDropList (cdkDropListDropped)="drop($event)" class="question-list">
-            <div *ngFor="let question of questions" cdkDrag class="question-item">
-                {{ question }}
+            <div *ngFor="let question of questions; let i = index" cdkDrag class="question-item">
+                <span>
+                    {{ question.number }}. {{ question.text }} ({{ question.type }})
+                </span>
+                <button mat-mini-fab color="warn" (click)="deleteQuestion(i)" class="delete-button"
+                    aria-label="Obriši pitanje">
+                    <mat-icon>delete</mat-icon>
+                </button>
             </div>
         </div>
     </mat-card-content>

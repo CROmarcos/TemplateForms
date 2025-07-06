@@ -9,6 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { QuestionTypeDialogComponent } from '../question-type-dialog/question-type-dialog.component';
 
+interface Question {
+  number: number;
+  text: string;
+  type: string;
+}
+
 @Component({
   selector: 'app-card',
   imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, DragDropModule, MatButtonModule, MatIconModule, MatDialogModule],
@@ -19,21 +25,35 @@ export class CardComponent {
   @Input() text: string = '';
   @Output() delete = new EventEmitter<void>();
 
-  constructor(private readonly dialog: MatDialog) {}
+  constructor(private readonly dialog: MatDialog) { }
 
-  questions = [
-    'pitanje A',
-    'pitanje B',
-    'pitanje C'
+  questions: Question[] = [
+    { number: 1, text: 'Pitanje A', type: 'text' },
+    { number: 2, text: 'Pitanje B', type: 'multiple-choice' },
+    { number: 3, text: 'Pitanje C', type: 'text' },
   ];
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<Question[]>) {
     moveItemInArray(this.questions, event.previousIndex, event.currentIndex);
+    this.updateQuestionNumbers();
+  }
+
+  private updateQuestionNumbers(): void {
+    this.questions.forEach((q, i) => q.number = i + 1);
   }
 
   addNewQuestion(type: string) {
-    const newQuestion = `Pitanje ${this.questions.length + 1}, (${type})`;
+    const newQuestion: Question = {
+      number: this.questions.length + 1,
+      text: `Pitanje ${this.questions.length + 1}`,
+      type: type
+    };
     this.questions.push(newQuestion);
+  }
+
+  deleteQuestion(index: number): void {
+    this.questions.splice(index, 1);
+    this.updateQuestionNumbers();
   }
 
   openQuestionTypeDialog(): void {
