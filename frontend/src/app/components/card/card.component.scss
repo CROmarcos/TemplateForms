@@ -42,34 +42,63 @@ mat-card {
     }
 }
 
+mat-form-field {
+  max-width: 85%;
+  margin-left: 10px;
+}
+
 .question-item {
-    background-color: lightyellow;
-    border: 1px solid black;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  background-color: whitesmoke;
+  padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.question-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.question-number {
+  font-weight: bold;
+}
+
+.question-text-field {
+  flex: 1;
+}
+
+.question-type {
+  color: #666;
+  font-style: italic;
+}
+
+.delete-button {
+  margin-left: auto;
 }
 
 .fab {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    z-index: 10;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 10;
 }
 
 .titleholder {
-    width: 90%;
+  width: 90%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
 }
 
 .actionholder {
-    width: 10%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 10%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

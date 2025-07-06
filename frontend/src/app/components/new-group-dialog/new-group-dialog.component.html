@@ -1,0 +1,10 @@
+<div class="popup">
+    <h2>Nova grupa pitanja</h2>
+    <mat-form-field appearance="outline">
+        <input matInput [(ngModel)]="groupName" placeholder="Unesi ime grupe" />
+    </mat-form-field>
+    <div class="dialog-actions">
+        <button mat-raised-button color="primary" (click)="confirm()">Potvrdi</button>
+        <button mat-stroked-button color="warn" (click)="cancel()">Odustani</button>
+    </div>
+</div>

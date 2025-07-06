@@ -1,0 +1,28 @@
+mat-form-field {
+    width: 100%;
+}
+
+.popup {
+    padding: 10px;
+}
+
+.dialog-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+:host {
+    display: block;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.mat-dialog-content {
+    overflow: hidden !important;
+}
+
+.mat-dialog-container {
+    overflow: visible !important;
+}

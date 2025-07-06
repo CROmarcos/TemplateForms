@@ -1,19 +1,28 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
-import { CardComponent } from './components/card/card.component';
+import { CardComponent, Question } from './components/card/card.component';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NewGroupDialogComponent } from './components/new-group-dialog/new-group-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+
+interface QuestionGroup {
+  id: number;
+  name: string;
+  questions: Question[];
+}
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, CardComponent, CommonModule],
+  standalone: true,
+  imports: [FormsModule, HeaderComponent, CardComponent, CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'frontend';
 
-  questionGroups = [
+  questionGroups: QuestionGroup[] = [
     {
       id: 1,
       name: 'Grupa 1',
@@ -32,38 +41,45 @@ export class AppComponent {
     }
   ];
 
-  selectedGroupId: number | null = this.questionGroups[0]?.id || null;
+  constructor(private readonly dialog: MatDialog) { }
 
-  get selectedGroup() {
-    return this.questionGroups.find(g => g.id === this.selectedGroupId) || null;
+  selectedGroupId: number = this.questionGroups[0].id;
+
+  get selectedGroup(): QuestionGroup | undefined {
+    return this.questionGroups.find(g => g.id === this.selectedGroupId);
   }
 
-  selectGroup(id: number) {
+  selectCard(id: number) {
     this.selectedGroupId = id;
   }
 
+  newGroupName: string = '';
+  addingNewGroup: boolean = false;
+
   addNewGroup() {
-    const newId = this.questionGroups.length
-      ? Math.max(...this.questionGroups.map(g => g.id)) + 1
-      : 1;
+    const dialogRef = this.dialog.open(NewGroupDialogComponent, {
+      width: '400px',
+      disableClose: true
+    });
 
-    const newGroup = {
-      id: newId,
-      name: `Grupa ${newId}`,
-      questions: []
-    };
-
-    this.questionGroups.push(newGroup);
-    this.selectGroup(newId);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const newId = this.questionGroups.length ? Math.max(...this.questionGroups.map(g => g.id)) + 1 : 1;
+        const newGroup: QuestionGroup = {
+          id: newId,
+          name: result,
+          questions: []
+        };
+        this.questionGroups.push(newGroup);
+        this.selectedGroupId = newId;
+      }
+    })
   }
 
   deleteGroup(id: number) {
-    this.questionGroups = this.questionGroups.filter(group => group.id !== id);
-
-    if (this.questionGroups.length) {
-      this.selectedGroupId = this.questionGroups[0].id;
-    } else {
-      this.selectedGroupId = null;
+    this.questionGroups = this.questionGroups.filter(g => g.id !== id);
+    if (this.selectedGroupId === id) {
+      this.selectedGroupId = this.questionGroups.length ? this.questionGroups[0].id : -1;
     }
   }
 }

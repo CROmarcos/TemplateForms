@@ -4,10 +4,7 @@
     <div class="side-panel">
       <ul>
         <li *ngFor="let group of questionGroups">
-          <button
-            (click)="selectGroup(group.id)"
-            [ngClass]="{ active: selectedGroupId === group.id }"
-          >
+          <button (click)="selectCard(group.id)" [ngClass]="{ active: selectedGroupId === group.id }">
             {{ group.name }}
           </button>
         </li>
@@ -15,12 +12,10 @@
     </div>
 
     <div class="center-panel">
-      <app-card
-        *ngIf="selectedGroup"
-        [text]="selectedGroup.name"
-        [questions]="selectedGroup.questions"
-        (delete)="deleteGroup(selectedGroup.id)"
-      ></app-card>
+      <ng-container *ngIf="selectedGroup">
+        <app-card [text]="selectedGroup.name" [questions]="selectedGroup.questions"
+          (delete)="deleteGroup(selectedGroup.id)"></app-card>
+      </ng-container>
     </div>
 
     <div class="side-panel">
@@ -28,5 +23,3 @@
     </div>
   </div>
 </main>
-
-<router-outlet />

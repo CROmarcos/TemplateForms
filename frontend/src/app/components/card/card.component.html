@@ -1,34 +1,40 @@
 <mat-card>
-    <mat-card-header>
-        <div class="titleholder">
-            <mat-card-title>Card: {{text}}</mat-card-title>
-        </div>
-        <div class="actionholder">
-            <button mat-icon-button color="warn" (click)="deleteCard()" aria-label="Obriši grupu pitanja">
-                <mat-icon>delete</mat-icon>
-            </button>
-        </div>
-    </mat-card-header>
+  <mat-card-header>
+    <div class="titleholder">
+      <mat-card-title>{{ text }}</mat-card-title>
+    </div>
+    <div class="actionholder">
+      <button mat-icon-button color="warn" (click)="deleteCard()" aria-label="Obriši grupu pitanja">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card-header>
 
-    <mat-card-content>
-        <div cdkDropList (cdkDropListDropped)="drop($event)" class="question-list">
-            <div *ngFor="let question of questions; let i = index" cdkDrag class="question-item">
-                <span>
-                    {{ question.number }}. {{ question.text }} ({{ question.type }})
-                </span>
-                <button mat-mini-fab color="warn" (click)="deleteQuestion(i)" class="delete-button"
-                    aria-label="Obriši pitanje">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </div>
+  <mat-card-content>
+    <div cdkDropList (cdkDropListDropped)="drop($event)" class="question-list">
+      <div *ngFor="let question of questions; let i = index" cdkDrag class="question-item">
+        <div class="question-header">
+          <span class="question-number">{{ question.number }}.</span>
+          <mat-form-field appearance="outline" class="question-text-field">
+            <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja" />
+          </mat-form-field>
+          <button mat-mini-fab color="warn" (click)="deleteQuestion(i)" class="delete-button" aria-label="Obriši pitanje">
+            <mat-icon>delete</mat-icon>
+          </button>
         </div>
-    </mat-card-content>
+      </div>
+    </div>
+  </mat-card-content>
 
-    <mat-card-footer>
-        <button mat-fab color="primary" class="fab" (click)="openQuestionTypeDialog()" aria-label="Dodaj pitanje">
-            <mat-icon>
-                add
-            </mat-icon>
-        </button>
-    </mat-card-footer>
+  <mat-card-footer>
+    <button
+      mat-fab
+      color="primary"
+      class="fab"
+      (click)="openQuestionTypeDialog()"
+      aria-label="Dodaj pitanje"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-card-footer>
 </mat-card>
