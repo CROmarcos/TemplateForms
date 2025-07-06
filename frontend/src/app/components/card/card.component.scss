@@ -37,8 +37,9 @@ mat-card {
         height: 60px;
         padding: 16px;
         display: flex;
-        justify-content: flex-end;
-        z-index: 1;
+        position: relative;
+        align-items: center;
+        justify-content: center;
     }
 }
 

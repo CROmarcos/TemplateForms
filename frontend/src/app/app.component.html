@@ -14,7 +14,7 @@
     <div class="center-panel">
       <ng-container *ngIf="selectedGroup">
         <app-card [text]="selectedGroup.name" [questions]="selectedGroup.questions"
-          (delete)="deleteGroup(selectedGroup.id)"></app-card>
+          (delete)="deleteGroup(selectedGroup.id)" (confirm)="handleConfirm($event)"></app-card>
       </ng-container>
     </div>
 

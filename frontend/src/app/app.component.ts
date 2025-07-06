@@ -82,4 +82,8 @@ export class AppComponent {
       this.selectedGroupId = this.questionGroups.length ? this.questionGroups[0].id : -1;
     }
   }
+
+  handleConfirm(questions: Question[]) {
+    console.log('Potvrđena pitanja:', JSON.stringify(questions, null, 2));
+  }
 }

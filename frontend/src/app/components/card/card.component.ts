@@ -40,6 +40,8 @@ export class CardComponent {
   @Input() text: string = '';
   @Input() questions: Question[] = [];
   @Output() delete = new EventEmitter<void>();
+  @Output() confirm = new EventEmitter<Question[]>();
+
 
   constructor(private readonly dialog: MatDialog) {}
 
@@ -84,6 +86,10 @@ export class CardComponent {
 
   deleteCard() {
     this.delete.emit();
+  }
+
+  confirmGroupOfQuestions(): void {
+    this.confirm.emit(this.questions);
   }
 
   private getDefaultOptions(type: string): string[] | undefined {
