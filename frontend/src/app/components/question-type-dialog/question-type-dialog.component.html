@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Odaberi tip pitanja</h2>
+<mat-dialog-content>
+  <mat-selection-list>
+    <mat-list-option *ngFor="let type of questionTypes" (click)="selectType(type.value)"
+    (keydown.enter)="selectType(type.value)" (keydown.space)="selectType(type.value)">
+      {{ type.label }}
+    </mat-list-option>
+  </mat-selection-list>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Odustani</button>
+</mat-dialog-actions>
