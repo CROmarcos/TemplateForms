@@ -23,15 +23,16 @@ interface Question {
 })
 export class CardComponent {
   @Input() text: string = '';
+  @Input() questions: Question[] = [];
   @Output() delete = new EventEmitter<void>();
 
   constructor(private readonly dialog: MatDialog) { }
 
-  questions: Question[] = [
-    { number: 1, text: 'Pitanje A', type: 'text' },
-    { number: 2, text: 'Pitanje B', type: 'multiple-choice' },
-    { number: 3, text: 'Pitanje C', type: 'text' },
-  ];
+  // questions: Question[] = [
+  //   { number: 1, text: 'Pitanje A', type: 'text' },
+  //   { number: 2, text: 'Pitanje B', type: 'multiple-choice' },
+  //   { number: 3, text: 'Pitanje C', type: 'text' },
+  // ];
 
   drop(event: CdkDragDrop<Question[]>) {
     moveItemInArray(this.questions, event.previousIndex, event.currentIndex);

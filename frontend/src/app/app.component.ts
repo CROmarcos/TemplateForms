@@ -13,41 +13,57 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   title = 'frontend';
 
-  cards = [
-    { id: 1, text: 'Grupa 1' },
-    { id: 2, text: 'Grupa 2' },
-    { id: 3, text: 'Grupa 3' }
+  questionGroups = [
+    {
+      id: 1,
+      name: 'Grupa 1',
+      questions: [
+        { number: 1, text: 'Pitanje A', type: 'text' },
+        { number: 2, text: 'Pitanje B', type: 'multiple-choice' }
+      ]
+    },
+    {
+      id: 2,
+      name: 'Grupa 2',
+      questions: [
+        { number: 1, text: 'Pitanje X', type: 'text' },
+        { number: 2, text: 'Pitanje Y', type: 'text' }
+      ]
+    }
   ];
 
-  selectedCard: { id: number; text: string } | null = this.cards[0];
+  selectedGroupId: number | null = this.questionGroups[0]?.id || null;
 
-  selectCard(card: { id: number; text: string }) {
-    this.selectedCard = card;
+  get selectedGroup() {
+    return this.questionGroups.find(g => g.id === this.selectedGroupId) || null;
   }
 
-  onKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      const clickedCard = (event.target as HTMLElement).innerText;
-      const card = this.cards.find(c => c.text === clickedCard);
-      if (card) {
-        this.selectCard(card);
-      }
-    }
+  selectGroup(id: number) {
+    this.selectedGroupId = id;
   }
 
   addNewGroup() {
-    console.log("Add new group")
-    const newCard = {
-      id: this.cards.length + 1,
-      text: `Grupa ${this.cards.length + 1}`
+    const newId = this.questionGroups.length
+      ? Math.max(...this.questionGroups.map(g => g.id)) + 1
+      : 1;
+
+    const newGroup = {
+      id: newId,
+      name: `Grupa ${newId}`,
+      questions: []
     };
 
-    this.cards.push(newCard);
-    this.selectedCard = newCard;
+    this.questionGroups.push(newGroup);
+    this.selectGroup(newId);
   }
 
-  deleteCard(cardToDelete: any) {
-    this.cards = this.cards.filter(card => card.id !== cardToDelete.id);
-    this.selectedCard = this.cards.length ? this.cards[0] : null;
+  deleteGroup(id: number) {
+    this.questionGroups = this.questionGroups.filter(group => group.id !== id);
+
+    if (this.questionGroups.length) {
+      this.selectedGroupId = this.questionGroups[0].id;
+    } else {
+      this.selectedGroupId = null;
+    }
   }
 }

@@ -3,18 +3,26 @@
   <div class="layout">
     <div class="side-panel">
       <ul>
-        <li *ngFor="let card of cards">
-          <button (click)="selectCard(card)" (keydown.enter)="selectCard(card)" [ngClass]="{ active: selectedCard?.id === card.id }">
-            {{ card.text }}
+        <li *ngFor="let group of questionGroups">
+          <button
+            (click)="selectGroup(group.id)"
+            [ngClass]="{ active: selectedGroupId === group.id }"
+          >
+            {{ group.name }}
           </button>
         </li>
       </ul>
     </div>
+
     <div class="center-panel">
-      <ng-container *ngIf="selectedCard as card">
-        <app-card [text]="card.text" (delete)="deleteCard(selectedCard)"></app-card>
-      </ng-container>
+      <app-card
+        *ngIf="selectedGroup"
+        [text]="selectedGroup.name"
+        [questions]="selectedGroup.questions"
+        (delete)="deleteGroup(selectedGroup.id)"
+      ></app-card>
     </div>
+
     <div class="side-panel">
       <button (click)="addNewGroup()">Dodaj novu grupu</button>
     </div>
