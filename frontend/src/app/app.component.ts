@@ -45,4 +45,9 @@ export class AppComponent {
     this.cards.push(newCard);
     this.selectedCard = newCard;
   }
+
+  deleteCard(cardToDelete: any) {
+    this.cards = this.cards.filter(card => card.id !== cardToDelete.id);
+    this.selectedCard = this.cards.length ? this.cards[0] : null;
+  }
 }

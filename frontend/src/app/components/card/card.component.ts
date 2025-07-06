@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class CardComponent {
   @Input() text: string = '';
+  @Output() delete = new EventEmitter<void>();
 
   questions = [
     'pitanje A',
@@ -29,5 +30,9 @@ export class CardComponent {
   addNewQuestion() {
     const newQuestion = `Pitanje ${this.questions.length + 1}`;
     this.questions.push(newQuestion);
+  }
+
+  deleteCard() {
+    this.delete.emit();
   }
 }

@@ -1,6 +1,13 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>Card: {{text}}</mat-card-title>
+        <div class="titleholder">
+            <mat-card-title>Card: {{text}}</mat-card-title>
+        </div>
+        <div class="actionholder">
+            <button mat-icon-button color="warn" (click)="deleteCard()" aria-label="Obriši grupu pitanja">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
     </mat-card-header>
 
     <mat-card-content>

@@ -12,7 +12,7 @@
     </div>
     <div class="center-panel">
       <ng-container *ngIf="selectedCard as card">
-        <app-card [text]="card.text"></app-card>
+        <app-card [text]="card.text" (delete)="deleteCard(selectedCard)"></app-card>
       </ng-container>
     </div>
     <div class="side-panel">
