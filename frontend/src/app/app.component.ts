@@ -10,6 +10,9 @@ interface QuestionGroup {
   id: number;
   name: string;
   questions: Question[];
+  isConfirmed: boolean;
+  confirmationTime?: string;
+  location?: string;
 }
 
 @Component({
@@ -29,7 +32,8 @@ export class AppComponent {
       questions: [
         { number: 1, text: 'Pitanje A', type: 'text' },
         { number: 2, text: 'Pitanje B', type: 'multiple-choice' }
-      ]
+      ],
+      isConfirmed: false
     },
     {
       id: 2,
@@ -37,7 +41,8 @@ export class AppComponent {
       questions: [
         { number: 1, text: 'Pitanje X', type: 'text' },
         { number: 2, text: 'Pitanje Y', type: 'text' }
-      ]
+      ],
+      isConfirmed: false
     }
   ];
 
@@ -68,7 +73,8 @@ export class AppComponent {
         const newGroup: QuestionGroup = {
           id: newId,
           name: result,
-          questions: []
+          questions: [],
+          isConfirmed: false
         };
         this.questionGroups.push(newGroup);
         this.selectedGroupId = newId;
@@ -83,7 +89,13 @@ export class AppComponent {
     }
   }
 
-  handleConfirm(questions: Question[]) {
-    console.log('Potvrđena pitanja:', JSON.stringify(questions, null, 2));
+  confirmGroup(id: number, questions: Question[]) {
+    const group = this.questionGroups.find(g => g.id === id);
+    if (!group) return;
+
+    group.isConfirmed = true;
+    group.confirmationTime = new Date().toLocaleString();
+    group.location = 'Lokacija nije dostupna';
+    console.log(JSON.stringify(questions, null, 2));
   }
 }

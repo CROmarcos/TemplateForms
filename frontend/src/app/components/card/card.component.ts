@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { QuestionTypeDialogComponent } from '../question-type-dialog/question-type-dialog.component';
 
@@ -15,8 +15,6 @@ export interface Question {
   text: string;
   type: string;
   options?: string[];
-  required?: boolean;
-  answer?: any;
 }
 
 @Component({
@@ -27,10 +25,10 @@ export interface Question {
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    DragDropModule,
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    DragDropModule,
     FormsModule
   ],
   templateUrl: './card.component.html',
@@ -39,13 +37,16 @@ export interface Question {
 export class CardComponent {
   @Input() text: string = '';
   @Input() questions: Question[] = [];
+  @Input() isConfirmed: boolean = false;
+  @Input() location: string | undefined;
+  @Input() confirmationTime: string | undefined;
   @Output() delete = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<Question[]>();
-
 
   constructor(private readonly dialog: MatDialog) {}
 
   drop(event: CdkDragDrop<Question[]>) {
+    if (this.isConfirmed) return;
     moveItemInArray(this.questions, event.previousIndex, event.currentIndex);
     this.updateQuestionNumbers();
   }
@@ -55,30 +56,30 @@ export class CardComponent {
   }
 
   addNewQuestion(type: string) {
+    if (this.isConfirmed) return;
     const newQuestion: Question = {
       number: this.questions.length + 1,
       text: '',
-      type: type,
-      options: this.getDefaultOptions(type)
+      type: type
     };
-
     this.questions.push(newQuestion);
   }
 
   deleteQuestion(index: number): void {
+    if (this.isConfirmed) return;
     this.questions.splice(index, 1);
     this.updateQuestionNumbers();
   }
 
   openQuestionTypeDialog(): void {
+    if (this.isConfirmed) return;
     const dialogRef = this.dialog.open(QuestionTypeDialogComponent, {
       width: '400px',
-      disableClose: true
+      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('Odabrani tip pitanja:', result);
         this.addNewQuestion(result);
       }
     });
@@ -88,24 +89,7 @@ export class CardComponent {
     this.delete.emit();
   }
 
-  confirmGroupOfQuestions(): void {
+  confirmGroupOfQuestions() {
     this.confirm.emit(this.questions);
-  }
-
-  private getDefaultOptions(type: string): string[] | undefined {
-    switch (type) {
-      case 'dropdown':
-        return ['Opcija 1', 'Opcija 2'];
-      case 'checkbox':
-        return ['Da', 'Ne'];
-      case 'rating-1-5':
-        return ['1', '2', '3', '4', '5'];
-      case 'rating-A-D':
-        return ['A', 'B', 'C', 'D'];
-      case 'table':
-        return ['Red 1', 'Red 2']; // primjer tabličnog unosa
-      default:
-        return undefined;
-    }
   }
 }

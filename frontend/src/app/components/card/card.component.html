@@ -11,14 +11,14 @@
   </mat-card-header>
 
   <mat-card-content>
-    <div cdkDropList (cdkDropListDropped)="drop($event)" class="question-list">
+    <div cdkDropList [cdkDropListDisabled]="isConfirmed" (cdkDropListDropped)="drop($event)" class="question-list">
       <div *ngFor="let question of questions; let i = index" cdkDrag class="question-item">
         <div class="question-header">
           <span class="question-number">{{ question.number }}.</span>
           <mat-form-field appearance="outline" class="question-text-field">
-            <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja" />
+            <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja" [readonly]="isConfirmed" />
           </mat-form-field>
-          <button mat-mini-fab color="warn" (click)="deleteQuestion(i)" class="delete-button" aria-label="Obriši pitanje">
+          <button *ngIf="!isConfirmed" mat-mini-fab color="warn" (click)="deleteQuestion(i)" class="delete-button" aria-label="Obriši pitanje">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
@@ -27,11 +27,15 @@
   </mat-card-content>
 
   <mat-card-footer>
-    <button mat-flat-button color="primary" (click)="confirmGroupOfQuestions()">
+    <button *ngIf="!isConfirmed" mat-flat-button color="primary" (click)="confirmGroupOfQuestions()" class="confirm-button">
       Potvrdi unos
     </button>
-    <button mat-fab color="primary" class="fab" (click)="openQuestionTypeDialog()" aria-label="Dodaj pitanje">
+    <button *ngIf="!isConfirmed" mat-fab color="primary" class="fab" (click)="openQuestionTypeDialog()" aria-label="Dodaj pitanje">
       <mat-icon>add</mat-icon>
     </button>
+    <span class="confirmed" *ngIf="isConfirmed">
+      <div class="confirmed-label">✅ Potvrđeno!</div>
+      <div class="confirmed-details">{{ location }}, {{ confirmationTime }}</div>
+    </span>
   </mat-card-footer>
 </mat-card>
