@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NewGroupDialogComponent } from './components/new-group-dialog/new-group-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { CardPageComponent } from './pages/card-page/card-page.component';
 
 interface QuestionGroup {
   id: number;
@@ -19,7 +21,7 @@ interface QuestionGroup {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule, HeaderComponent, CardComponent, CommonModule],
+  imports: [FormsModule, HeaderComponent, CardComponent, CommonModule, HomePageComponent, CardPageComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -46,7 +48,57 @@ export class AppComponent {
         { number: 2, text: 'Pitanje Y', type: 'text' }
       ],
       isConfirmed: false
-    }
+    },
+    {
+      id: 3,
+      name: 'Dodatni ispiti',
+      description: 'Probna grupa 2',
+      questions: [
+        { number: 1, text: 'Pitanje X', type: 'text' },
+        { number: 2, text: 'Pitanje Y', type: 'text' }
+      ],
+      isConfirmed: false
+    },
+    {
+      id: 4,
+      name: 'Filter 2B',
+      description: 'Probna grupa 2',
+      questions: [
+        { number: 1, text: 'Pitanje X', type: 'text' },
+        { number: 2, text: 'Pitanje Y', type: 'text' }
+      ],
+      isConfirmed: false
+    },
+    {
+      id: 5,
+      name: 'Testovi',
+      description: 'Probna grupa 2',
+      questions: [
+        { number: 1, text: 'Pitanje X', type: 'text' },
+        { number: 2, text: 'Pitanje Y', type: 'text' }
+      ],
+      isConfirmed: false
+    },
+    {
+      id: 6,
+      name: 'Grupa 2B',
+      description: 'Probna grupa 2',
+      questions: [
+        { number: 1, text: 'Pitanje X', type: 'text' },
+        { number: 2, text: 'Pitanje Y', type: 'text' }
+      ],
+      isConfirmed: false
+    },
+    {
+      id: 7,
+      name: 'Testiranje',
+      description: 'Probna grupa 2',
+      questions: [
+        { number: 1, text: 'Pitanje X', type: 'text' },
+        { number: 2, text: 'Pitanje Y', type: 'text' }
+      ],
+      isConfirmed: false
+    },
   ];
 
   constructor(private readonly dialog: MatDialog) { }
@@ -100,5 +152,14 @@ export class AppComponent {
     group.confirmationTime = new Date().toLocaleString();
     group.location = 'Lokacija nije dostupna';
     console.log(JSON.stringify(questions, null, 2));
+  }
+
+  deselectGroup() {
+    this.selectedGroupId = 0;
+  }
+
+  updateGroup(id: number, changes: Partial<QuestionGroup>) {
+    const group = this.questionGroups.find(g => g.id === id);
+    if (group) Object.assign(group, changes);
   }
 }
