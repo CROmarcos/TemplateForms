@@ -4,25 +4,33 @@
     <div class="side-panel">
       <ul>
         <li *ngFor="let group of questionGroups">
-          <button (click)="selectCard(group.id)" [ngClass]="{ active: selectedGroupId === group.id }">
-            {{ group.name }}
+          <button class="group-list" (click)="selectCard(group.id)"
+            [ngClass]="{ active: selectedGroupId === group.id }">
+            <div class="group-list-container">
+              <img src="filled-form.png" alt="Otvori">
+            </div>
           </button>
+          <p>{{ group.name }}</p>
         </li>
       </ul>
     </div>
 
     <div class="center-panel">
       <ng-container *ngIf="selectedGroup">
-        <app-card [text]="selectedGroup.name" [questions]="selectedGroup.questions"
+        <app-card [text]="selectedGroup.name" [description]="selectedGroup.description" [questions]="selectedGroup.questions"
           [isConfirmed]="selectedGroup.isConfirmed" [confirmationTime]="selectedGroup.confirmationTime"
-          [location]="selectedGroup.location" (delete)="deleteGroup(selectedGroup.id)"
-          (confirm)="confirmGroup(selectedGroup.id, $event)">
+          [location]="selectedGroup.location" (delete)="deleteGroup(selectedGroup.id)" (confirm)="confirmGroup(selectedGroup.id, $event)"
+          (textChange)="selectedGroup.name = $event" (descriptionChange)="selectedGroup.description = $event">
         </app-card>
       </ng-container>
     </div>
 
     <div class="side-panel">
-      <button (click)="addNewGroup()">Dodaj novu grupu</button>
+      <button class="new-group" (click)="addNewGroup()">
+        <div class="new-group-container">
+          <img src="plus-icon.png" alt="Dodaj">
+        </div>
+      </button>
     </div>
   </div>
 </main>

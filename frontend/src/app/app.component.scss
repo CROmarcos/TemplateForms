@@ -1,5 +1,6 @@
 .main {
     height: 100vh;
+    background-color: rgb(240, 235, 248);
     display: flex;
     flex-direction: column;
 }
@@ -13,7 +14,6 @@
 
 .side-panel {
     width: 20%;
-    background-color: whitesmoke;
     padding: 20px;
     box-sizing: border-box;
     display: flex;
@@ -30,22 +30,6 @@
         height: fit-content;
         margin-bottom: 5px;
     }
-
-    button {
-        width: 250px;
-        height: 50px;
-        text-transform: uppercase;
-        font-size: 16pt;
-        cursor: pointer;
-        border: rgb(14, 6, 89) 2pt solid;
-        color: rgb(14, 6, 89);
-
-        &.active {
-            color: whitesmoke;
-            font-weight: bold;
-            background-color: rgb(14, 6, 89);
-        }
-    }
 }
 
 .center-panel {
@@ -53,4 +37,52 @@
     padding: 20px;
     display: flex;
     justify-content: center;
+}
+
+.group-list {
+    width: 150px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px silver solid;
+    border-radius: 2%;
+
+    .container {
+        width: 140px;
+        height: 170px;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    &.active {
+        color: whitesmoke;
+        font-weight: bold;
+        background-color: rgb(14, 6, 89);
+    }
+}
+
+.new-group {
+    width: 180px;
+    height: 130px;
+    background-color: whitesmoke;
+    font-size: 96pt;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px silver solid;
+    border-radius: 2%;
+
+    &-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
 }

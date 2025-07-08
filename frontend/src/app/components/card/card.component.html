@@ -1,7 +1,24 @@
 <mat-card>
-  <mat-card-header>
+  <mat-card-header (mouseenter)="hover=true" (mouseleave)="hover=false">
     <div class="titleholder">
-      <mat-card-title>{{ text }}</mat-card-title>
+      <mat-card-title>
+        <ng-container *ngIf="!editingTitle; else editTitle">
+          <span class="titleholder-text" (click)="startEditing('title')">{{ text || 'Bez naslova' }}</span>
+        </ng-container>
+        <ng-template #editTitle>
+          <input [(ngModel)]="text" (blur)="stopEditing()" (keydown.enter)="stopEditing()" class="material-input"
+            placeholder="Obrazac bez naslova" autofocus />
+        </ng-template>
+      </mat-card-title>
+      <p class="titleholder-description">
+        <ng-container *ngIf="!editingDescription; else editDescription">
+          <span (click)="startEditing('description')">{{ description || 'Opis obrasca' }}</span>
+        </ng-container>
+        <ng-template #editDescription>
+          <textarea [(ngModel)]="description" (blur)="stopEditing()" rows="1" class="material-textarea"
+            placeholder="Opis obrasca" autofocus></textarea>
+        </ng-template>
+      </p>
     </div>
     <div class="actionholder">
       <button mat-icon-button color="warn" (click)="deleteCard()" aria-label="Obriši grupu pitanja">
@@ -16,9 +33,11 @@
         <div class="question-header">
           <span class="question-number">{{ question.number }}.</span>
           <mat-form-field appearance="outline" class="question-text-field">
-            <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja" [readonly]="isConfirmed" />
+            <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja"
+              [readonly]="isConfirmed" />
           </mat-form-field>
-          <button *ngIf="!isConfirmed" mat-mini-fab color="warn" (click)="deleteQuestion(i)" class="delete-button" aria-label="Obriši pitanje">
+          <button *ngIf="!isConfirmed" mat-mini-fab color="warn" (click)="deleteQuestion(i)" class="delete-button"
+            aria-label="Obriši pitanje">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
@@ -27,10 +46,12 @@
   </mat-card-content>
 
   <mat-card-footer>
-    <button *ngIf="!isConfirmed" mat-flat-button color="primary" (click)="confirmGroupOfQuestions()" class="confirm-button">
+    <button *ngIf="!isConfirmed" mat-flat-button color="primary" (click)="confirmGroupOfQuestions()"
+      class="confirm-button">
       Potvrdi unos
     </button>
-    <button *ngIf="!isConfirmed" mat-fab color="primary" class="fab" (click)="openQuestionTypeDialog()" aria-label="Dodaj pitanje">
+    <button *ngIf="!isConfirmed" mat-fab color="primary" class="fab" (click)="openQuestionTypeDialog()"
+      aria-label="Dodaj pitanje">
       <mat-icon>add</mat-icon>
     </button>
     <span class="confirmed" *ngIf="isConfirmed">

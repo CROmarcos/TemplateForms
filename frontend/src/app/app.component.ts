@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 interface QuestionGroup {
   id: number;
   name: string;
+  description?: string;
   questions: Question[];
   isConfirmed: boolean;
   confirmationTime?: string;
@@ -29,6 +30,7 @@ export class AppComponent {
     {
       id: 1,
       name: 'Grupa 1',
+      description: 'Probna grupa 1',
       questions: [
         { number: 1, text: 'Pitanje A', type: 'text' },
         { number: 2, text: 'Pitanje B', type: 'multiple-choice' }
@@ -38,6 +40,7 @@ export class AppComponent {
     {
       id: 2,
       name: 'Grupa 2',
+      description: 'Probna grupa 2',
       questions: [
         { number: 1, text: 'Pitanje X', type: 'text' },
         { number: 2, text: 'Pitanje Y', type: 'text' }

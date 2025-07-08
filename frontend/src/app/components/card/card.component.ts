@@ -37,13 +37,20 @@ export interface Question {
 export class CardComponent {
   @Input() text: string = '';
   @Input() questions: Question[] = [];
+  @Input() description: string | undefined;
   @Input() isConfirmed: boolean = false;
   @Input() location: string | undefined;
   @Input() confirmationTime: string | undefined;
+  @Output() textChange = new EventEmitter<string>();
+  @Output() descriptionChange = new EventEmitter<string>();
   @Output() delete = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<Question[]>();
 
-  constructor(private readonly dialog: MatDialog) {}
+  hover = false;
+  editingTitle = false;
+  editingDescription = false;
+
+  constructor(private readonly dialog: MatDialog) { }
 
   drop(event: CdkDragDrop<Question[]>) {
     if (this.isConfirmed) return;
@@ -91,5 +98,24 @@ export class CardComponent {
 
   confirmGroupOfQuestions() {
     this.confirm.emit(this.questions);
+  }
+
+  startEditing(field: 'title' | 'description') {
+    if (field === 'title') {
+      this.editingTitle = true;
+    } else {
+      this.editingDescription = true;
+    }
+  }
+
+  stopEditing() {
+    if (this.editingTitle) {
+      this.textChange.emit(this.text);
+    }
+    if (this.editingDescription) {
+      this.descriptionChange.emit(this.description);
+    }
+    this.editingTitle = false;
+    this.editingDescription = false;
   }
 }
