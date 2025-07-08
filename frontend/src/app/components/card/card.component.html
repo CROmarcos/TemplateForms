@@ -30,6 +30,7 @@
   <mat-card-content>
     <div cdkDropList [cdkDropListDisabled]="isConfirmed" (cdkDropListDropped)="drop($event)" class="question-list">
       <div *ngFor="let question of questions; let i = index" cdkDrag class="question-item">
+        <div class="question-dragger" cdkDragHandle></div>
         <div class="question-header">
           <span class="question-number">{{ question.number }}.</span>
           <mat-form-field appearance="outline" class="question-text-field">

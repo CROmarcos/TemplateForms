@@ -6,6 +6,7 @@ mat-card {
   flex-direction: column;
   background: transparent;
   box-shadow: none;
+  position: relative;
 
   &-header {
     padding: 0;
@@ -21,9 +22,7 @@ mat-card {
   &-content {
     position: relative;
     height: fit-content;
-    padding-left: 0;
-    padding-right: 8px;
-    flex: 1 1 auto;
+    padding: 0;
     overflow-y: auto;
 
     &::-webkit-scrollbar {
@@ -38,7 +37,6 @@ mat-card {
 
   &-footer {
     height: 60px;
-    padding: 16px;
     display: flex;
     position: relative;
     align-items: center;
@@ -54,7 +52,7 @@ mat-form-field {
 .question-item {
   width: 100%;
   background-color: whitesmoke;
-  padding: 12px;
+  padding: 22px 12px 12px 12px;
   margin-bottom: 10px;
   border: silver 1pt solid;
   border-radius: 5px;
@@ -68,6 +66,34 @@ mat-form-field {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.question-dragger {
+  width: 100%;
+  height: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  cursor: all-scroll;
+  transition: background-color 0.2s ease;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    height: 100%;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' xmlns='http://www.w3.org/2000/svg' height='10' viewBox='0 0 24 24' width='10'><path d='M13 5.83L14.59 7.41 16 6l-4-4-4 4 1.41 1.41L11 5.83V10h2V5.83zM5.83 13L7.41 14.59 6 16l-4-4 4-4 1.41 1.41L5.83 11H10v2H5.83zM13 18.17V14h-2v4.17l-1.41-1.41L8 18l4 4 4-4-1.41-1.41L13 18.17zM18.17 11H14v2h4.17l-1.41 1.41L18 16l4-4-4-4-1.41 1.41L18.17 11z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px;
+  }
 }
 
 .question-number {
@@ -89,9 +115,11 @@ mat-form-field {
 
 .fab {
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 2px;
   z-index: 10;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .titleholder {
@@ -162,4 +190,8 @@ mat-form-field {
     font-size: 24px;
     color: green;
   }
+}
+
+.confirm-button {
+  background-color: #673ab7 !important;
 }
