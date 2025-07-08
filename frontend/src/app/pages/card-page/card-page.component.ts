@@ -20,7 +20,6 @@ interface QuestionGroup {
 })
 export class CardPageComponent {
   @Input() group!: QuestionGroup;
-
   @Output() back = new EventEmitter<void>();
   @Output() update = new EventEmitter<{ id: number; changes: Partial<QuestionGroup> }>();
   @Output() delete = new EventEmitter<{ id: number }>();

@@ -1,14 +1,10 @@
-<button (click)="back.emit()">⬅ Natrag</button>
-
-<app-card
-  [text]="group.name"
-  [description]="group.description"
-  [questions]="group.questions"
-  [isConfirmed]="group.isConfirmed"
-  [confirmationTime]="group.confirmationTime"
-  [location]="group.location"
-  (delete)="handleDelete()"
-  (confirm)="handleConfirm($event)"
-  (textChange)="handleTextChange($event)"
-  (descriptionChange)="handleDescriptionChange($event)">
-</app-card>
+<div>
+  <div class="top-bar">
+    <button (click)="back.emit()">⬅ Povratak</button>
+  </div>
+  <app-card [text]="group.name" [description]="group.description" [questions]="group.questions"
+    [isConfirmed]="group.isConfirmed" [confirmationTime]="group.confirmationTime" [location]="group.location"
+    (delete)="handleDelete()" (confirm)="handleConfirm($event)" (textChange)="handleTextChange($event)"
+    (descriptionChange)="handleDescriptionChange($event)">
+  </app-card>
+</div>

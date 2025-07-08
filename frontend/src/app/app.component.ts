@@ -103,7 +103,7 @@ export class AppComponent {
 
   constructor(private readonly dialog: MatDialog) { }
 
-  selectedGroupId: number = this.questionGroups[0].id;
+  selectedGroupId: number = 0;
 
   get selectedGroup(): QuestionGroup | undefined {
     return this.questionGroups.find(g => g.id === this.selectedGroupId);

@@ -35,6 +35,7 @@
     border-radius: 2%;
 
     &-panel {
+        width: 100%;
         margin-bottom: 50px;
     }
 
@@ -50,12 +51,14 @@
 }
 
 ul {
+    width: 100%;
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 50px
+    justify-content: flex-start;
+    gap: 50px;
 }
 
 li {
@@ -68,5 +71,22 @@ li {
     p {
         margin-top: 5px;
         margin-bottom: 0;
+    }
+}
+
+.search {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+
+    &-input {
+        width: 250px;
+        height: 30px;
+        padding: 8px 12px;
+        font-size: 16px;
+        border: 1px solid silver;
+        border-radius: 15px;
     }
 }
