@@ -16,9 +16,9 @@ export class QuestionTypeDialogComponent {
     { label: 'Tekstualno polje (kratko / dugačko)', value: 'text' },
     { label: 'Brojčano polje', value: 'number' },
     { label: 'Datum / Vrijeme', value: 'datetime' },
-    { label: 'DA/NE pitanje', value: 'radio' },
-    { label: 'više opcija (checkbox)', value: 'checkbox' },
-    { label: 'Ocjena (1–5)', value: 'rating_1_5' },
+    { label: 'DA/NE pitanje', value: 'radio' }, // DODANO
+    { label: 'Više opcija (checkbox)', value: 'checkbox' }, // DODANO
+    { label: 'Ocjena (1–5)', value: 'rating_1_5' }, // DODANO
     { label: 'Ocjena (A–D)', value: 'rating_a_d' },
     { label: 'Dropdown (s opcijama)', value: 'dropdown' },
     { label: 'Tablični unos', value: 'table' },

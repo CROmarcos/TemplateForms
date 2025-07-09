@@ -17,6 +17,7 @@ export interface Question {
   text: string;
   type: string;
   answer?: any;
+  comment?: string;
   options?: QuestionOption[];
 }
 
@@ -131,6 +132,12 @@ export class CardComponent {
   }
 
   confirmGroupOfQuestions() {
+    for (const q of this.questions) {
+      if (q.type === 'rating_1_5' && q.answer === 1 && !q.comment?.trim()) {
+        alert('Molimo unesite komentar za ocjenu 1.');
+        return;
+      }
+    }
     this.confirm.emit(this.questions);
   }
 
