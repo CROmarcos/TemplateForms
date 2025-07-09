@@ -9,12 +9,22 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { QuestionTypeDialogComponent } from '../question-type-dialog/question-type-dialog.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 export interface Question {
   number: number;
   text: string;
   type: string;
-  options?: string[];
+  answer?: any;
+  options?: QuestionOption[];
+}
+
+export interface QuestionOption {
+  num: number;
+  label: string;
+  value?: any;
+  comment?: string;
 }
 
 @Component({
@@ -28,6 +38,8 @@ export interface Question {
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    MatRadioModule,
+    MatCheckboxModule,
     DragDropModule,
     FormsModule
   ],
@@ -67,8 +79,19 @@ export class CardComponent {
     const newQuestion: Question = {
       number: this.questions.length + 1,
       text: '',
-      type: type
+      type: type,
+      options: []
     };
+
+    if (type === 'radio') {
+      newQuestion.options?.push({ num: 1, label: 'da', value: true });
+      newQuestion.options?.push({ num: 2, label: 'ne', value: false });
+    }
+
+    if (type === 'checkbox') {
+      newQuestion.options?.push({ num: 1, label: '', value: false });
+    }
+
     this.questions.push(newQuestion);
   }
 
@@ -76,6 +99,17 @@ export class CardComponent {
     if (this.isConfirmed) return;
     this.questions.splice(index, 1);
     this.updateQuestionNumbers();
+  }
+
+  addOption(question: Question): void {
+    question.options ??= [];
+    question.options.push({ num: question.options.length + 1, label: '', value: false });
+  }
+
+  deleteOption(question: Question, index: number): void {
+    if (question.options && question.options.length > 1) {
+      question.options.splice(index, 1);
+    }
   }
 
   openQuestionTypeDialog(): void {

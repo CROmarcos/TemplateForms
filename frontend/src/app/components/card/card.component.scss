@@ -45,8 +45,25 @@ mat-card {
 }
 
 mat-form-field {
-  max-width: 85%;
+  width: 100%;
   margin-left: 10px;
+
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: row;
+  padding-left: 15px;
+  gap: 30px;
+}
+
+.option {
+  width: 60%;
+
+  &__add {
+    height: 21px;
+    margin-left: 15px;
+  }
 }
 
 .question-item {
@@ -60,6 +77,11 @@ mat-form-field {
   flex-direction: column;
   position: relative;
   box-sizing: border-box;
+
+  &__container {
+    display: block;
+    width: 85%;
+  }
 }
 
 .question-header {

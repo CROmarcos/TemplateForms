@@ -33,7 +33,34 @@
         <div class="question-dragger" cdkDragHandle></div>
         <div class="question-header">
           <span class="question-number">{{ question.number }}.</span>
-          <mat-form-field appearance="outline" class="question-text-field">
+
+          <!-- DA/NE pitanje -->
+          <div *ngIf="question.type === 'radio'" class="question-item__container">
+            <mat-form-field appearance="outline" class="question-text-field">
+              <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja" [readonly]="isConfirmed" />
+            </mat-form-field>
+            <mat-radio-group [(ngModel)]="question.answer" [disabled]="isConfirmed">
+              <mat-radio-button value="da">Da</mat-radio-button>
+              <mat-radio-button value="ne">Ne</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <!-- Checkbox opcije -->
+          <div *ngIf="question.type === 'checkbox'" class="question-item__container">
+            <mat-form-field appearance="outline" class="checkbox-text-field">
+              <input matInput placeholder="Unesite tekst pitanja" [readonly]="isConfirmed" />
+            </mat-form-field>
+            <div *ngFor="let option of question.options; let i = index">
+              <div class="option">
+                <mat-checkbox [(ngModel)]="option.value" [disabled]="isConfirmed"></mat-checkbox>
+                <input matInput placeholder="Ponuđena opcija" [(ngModel)]="option.label" [readonly]="isConfirmed" />
+                <button class="option__add" *ngIf="!isConfirmed" (click)="addOption(question)">+</button>
+                <button class="option__add" *ngIf="!isConfirmed && (question.options?.length ?? 0) > 1" (click)="deleteOption(question, i)" aria-label="Obriši opciju">-</button>
+              </div>
+            </div>
+          </div>
+
+          <mat-form-field *ngIf="question.type !== 'radio' && question.type !== 'checkbox'" appearance="outline" class="question-text-field">
             <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja"
               [readonly]="isConfirmed" />
           </mat-form-field>
