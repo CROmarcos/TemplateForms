@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -29,6 +29,19 @@ export class ResponseFormComponent {
   @Input() questions: Question[] = [];
   @Output() submitAnswers = new EventEmitter<Question[]>();
 
+  localQuestions: Question[] = [];
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['questions']) {
+      this.localQuestions = this.questions.map(q => ({
+        ...q,
+        answer: null,
+        comment: '',
+        options: q.options?.map(opt => ({ ...opt, value: false })) ?? [],
+      }));
+    }
+  }
+
   onSubmit() {
     for (const q of this.questions) {
       if (q.type === 'rating_1_5' && q.answer === 1 && !q.comment?.trim()) {
@@ -36,8 +49,13 @@ export class ResponseFormComponent {
         return;
       }
     }
-
     console.log('Popunjeni odgovori:', JSON.stringify(this.questions, null, 2));
-    this.submitAnswers.emit(this.questions);  }
-
+    this.submitAnswers.emit(this.questions);
+    this.localQuestions = this.localQuestions.map(q => ({
+      ...q,
+      answer: null,
+      comment: '',
+      options: q.options?.map(opt => ({ ...opt, value: false })) ?? [],
+    }));
+  }
 }

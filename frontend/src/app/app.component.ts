@@ -178,6 +178,7 @@ export class AppComponent {
 
   handleAnswers(answers: Question[]) {
     console.log('📋 Odgovori korisnika:\n', JSON.stringify(answers, null, 2));
+    this.respondingGroupId = 0;
     this.deselectGroup();
   }
 
