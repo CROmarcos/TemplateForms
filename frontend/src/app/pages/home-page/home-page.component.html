@@ -16,11 +16,13 @@
         <p class="description">Nedavni obrasci</p>
         <ul>
             <li *ngFor="let group of filteredGroups">
-                <button class="group-list" (click)="select.emit(group.id)">
-                    <div class="group-list-container">
-                        <img src="filled-form.png" alt="Otvori">
-                    </div>
-                </button>
+                <div class="group-actions">
+                    <button class="group-list" (click)="select.emit({ id: group.id, mode: 'edit' })">
+                        <div class="group-list-container">
+                            <img src="filled-form.png" alt="Uredi">
+                        </div>
+                    </button>
+                </div>
                 <p>{{ group.name }}</p>
             </li>
         </ul>

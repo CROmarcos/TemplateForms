@@ -58,6 +58,7 @@ export class CardComponent {
   @Output() descriptionChange = new EventEmitter<string>();
   @Output() delete = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<Question[]>();
+  @Output() fillOut = new EventEmitter<void>();
 
   hover = false;
   editingTitle = false;
@@ -158,5 +159,9 @@ export class CardComponent {
     }
     this.editingTitle = false;
     this.editingDescription = false;
+  }
+
+  onFillOut() {
+    this.fillOut.emit();
   }
 }

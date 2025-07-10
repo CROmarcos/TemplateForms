@@ -7,6 +7,7 @@ import { NewGroupDialogComponent } from './components/new-group-dialog/new-group
 import { MatDialog } from '@angular/material/dialog';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { CardPageComponent } from './pages/card-page/card-page.component';
+import { ResponseFormComponent } from './components/response-form/response-form.component';
 
 interface QuestionGroup {
   id: number;
@@ -21,7 +22,7 @@ interface QuestionGroup {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule, HeaderComponent, CardComponent, CommonModule, HomePageComponent, CardPageComponent],
+  imports: [FormsModule, HeaderComponent, CardComponent, CommonModule, HomePageComponent, CardPageComponent, ResponseFormComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -104,13 +105,20 @@ export class AppComponent {
   constructor(private readonly dialog: MatDialog) { }
 
   selectedGroupId: number = 0;
+  respondingGroupId: number = 0;
 
   get selectedGroup(): QuestionGroup | undefined {
     return this.questionGroups.find(g => g.id === this.selectedGroupId);
   }
 
-  selectCard(id: number) {
-    this.selectedGroupId = id;
+  selectCard(payload: { id: number; mode: 'edit' | 'respond' }) {
+    if (payload.mode === 'edit') {
+      this.selectedGroupId = payload.id;
+      this.respondingGroupId = 0;
+    } else {
+      this.respondingGroupId = payload.id;
+      this.selectedGroupId = 0;
+    }
   }
 
   newGroupName: string = '';
@@ -154,12 +162,27 @@ export class AppComponent {
     console.log(JSON.stringify(questions, null, 2));
   }
 
-  deselectGroup() {
-    this.selectedGroupId = 0;
-  }
-
   updateGroup(id: number, changes: Partial<QuestionGroup>) {
     const group = this.questionGroups.find(g => g.id === id);
     if (group) Object.assign(group, changes);
+  }
+
+  get respondingGroup(): QuestionGroup | undefined {
+    return this.questionGroups.find(g => g.id === this.respondingGroupId);
+  }
+
+  openResponseForm(id: number) {
+    this.respondingGroupId = id;
+    this.selectedGroupId = 0;
+  }
+
+  handleAnswers(answers: Question[]) {
+    console.log('📋 Odgovori korisnika:\n', JSON.stringify(answers, null, 2));
+    this.deselectGroup();
+  }
+
+  deselectGroup() {
+    this.selectedGroupId = 0;
+    this.respondingGroupId = 0;
   }
 }

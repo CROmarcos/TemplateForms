@@ -3,12 +3,15 @@
   <div class="layout">
     <div class="side-panel"></div>
     <div class="center-panel">
-      <app-home-page *ngIf="!selectedGroupId" [questionGroups]="questionGroups" (select)="selectCard($event)"
-        (add)="addNewGroup()"></app-home-page>
+      <app-home-page *ngIf="!selectedGroup && !respondingGroup" [questionGroups]="questionGroups" (add)="addNewGroup()" (select)="selectCard($event)"></app-home-page>
 
       <app-card-page *ngIf="selectedGroup" [group]="selectedGroup" (back)="deselectGroup()"
         (delete)="deleteGroup($event.id)" (update)="updateGroup($event.id, $event.changes)"
-        (confirm)="confirmGroup($event.id, $event.questions)"></app-card-page>
+        (confirm)="confirmGroup($event.id, $event.questions)" (fill)="openResponseForm($event)"></app-card-page>
+
+      <app-response-form *ngIf="respondingGroup" [questions]="respondingGroup.questions"
+        (submitAnswers)="handleAnswers($event)">
+      </app-response-form>
     </div>
     <div class="side-panel"></div>
   </div>

@@ -24,6 +24,7 @@ export class CardPageComponent {
   @Output() update = new EventEmitter<{ id: number; changes: Partial<QuestionGroup> }>();
   @Output() delete = new EventEmitter<{ id: number }>();
   @Output() confirm = new EventEmitter<{ id: number; questions: Question[] }>();
+  @Output() fill = new EventEmitter<number>();
 
   handleTextChange(name: string) {
     this.update.emit({ id: this.group.id, changes: { name } });
@@ -39,5 +40,9 @@ export class CardPageComponent {
 
   handleConfirm(questions: Question[]) {
     this.confirm.emit({ id: this.group.id, questions });
+  }
+
+  handleFillOut() {
+    this.fill.emit(this.group.id);
   }
 }

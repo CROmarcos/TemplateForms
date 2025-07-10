@@ -37,7 +37,8 @@
           <!-- DA/NE pitanje -->
           <div *ngIf="question.type === 'radio'" class="question-item__container">
             <mat-form-field appearance="outline" class="question-text-field">
-              <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja" [readonly]="isConfirmed" />
+              <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja"
+                [readonly]="isConfirmed" />
             </mat-form-field>
             <mat-radio-group [(ngModel)]="question.answer" [disabled]="isConfirmed">
               <mat-radio-button value="da">Da</mat-radio-button>
@@ -55,7 +56,8 @@
                 <mat-checkbox [(ngModel)]="option.value" [disabled]="isConfirmed"></mat-checkbox>
                 <input matInput placeholder="Ponuđena opcija" [(ngModel)]="option.label" [readonly]="isConfirmed" />
                 <button class="option__add" *ngIf="!isConfirmed" (click)="addOption(question)">+</button>
-                <button class="option__add" *ngIf="!isConfirmed && (question.options?.length ?? 0) > 1" (click)="deleteOption(question, i)" aria-label="Obriši opciju">-</button>
+                <button class="option__add" *ngIf="!isConfirmed && (question.options?.length ?? 0) > 1"
+                  (click)="deleteOption(question, i)" aria-label="Obriši opciju">-</button>
               </div>
             </div>
           </div>
@@ -63,7 +65,8 @@
           <!-- Ocjena 1-5  -->
           <div *ngIf="question.type === 'rating_1_5'" class="question-item__container">
             <mat-form-field appearance="outline" class="question-text-field">
-              <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja" [readonly]="isConfirmed" />
+              <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja"
+                [readonly]="isConfirmed" />
             </mat-form-field>
             <mat-radio-group [(ngModel)]="question.answer" [disabled]="isConfirmed">
               <mat-radio-button *ngFor="let option of [1,2,3,4,5]" [value]="option">
@@ -72,17 +75,15 @@
             </mat-radio-group>
             <div *ngIf="question.answer === 1">
               <mat-form-field appearance="outline" class="comment-field">
-                <input
-                  matInput
-                  [(ngModel)]="question.comment"
-                  placeholder="Molimo pojasnite zašto ste dali ocjenu 1"
-                  [required]="true"
-                  [readonly]="isConfirmed" />
+                <input matInput [(ngModel)]="question.comment" placeholder="Molimo pojasnite zašto ste dali ocjenu 1"
+                  [required]="true" [readonly]="isConfirmed" />
               </mat-form-field>
             </div>
           </div>
 
-          <mat-form-field *ngIf="question.type !== 'radio' && question.type !== 'checkbox' && question.type !== 'rating_1_5'" appearance="outline" class="question-text-field">
+          <mat-form-field
+            *ngIf="question.type !== 'radio' && question.type !== 'checkbox' && question.type !== 'rating_1_5'"
+            appearance="outline" class="question-text-field">
             <input class="question-input" matInput [(ngModel)]="question.text" placeholder="Unesite tekst pitanja"
               [readonly]="isConfirmed" />
           </mat-form-field>
@@ -108,5 +109,8 @@
       <div class="confirmed-label">✅ Potvrđeno!</div>
       <div class="confirmed-details">{{ location }}, {{ confirmationTime }}</div>
     </span>
+    <button *ngIf="isConfirmed" mat-flat-button color="accent" (click)="onFillOut()">
+      Ispuni obrazac
+    </button>
   </mat-card-footer>
 </mat-card>

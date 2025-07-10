@@ -1,0 +1,65 @@
+mat-card {
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 24px;
+
+  mat-card-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    p {
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    mat-radio-group,
+    mat-checkbox,
+    mat-form-field {
+      display: block;
+      margin-top: 8px;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    hr {
+      margin: 24px 0;
+      border: none;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    button {
+      min-width: 200px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  mat-card {
+    padding: 16px;
+
+    mat-card-title {
+      font-size: 20px;
+    }
+
+    mat-card-actions button {
+      width: 100%;
+    }
+  }
+}

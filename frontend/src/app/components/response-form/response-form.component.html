@@ -1,0 +1,41 @@
+<mat-card>
+  <mat-card-title>Upitnik</mat-card-title>
+  <mat-card-content>
+    <div *ngFor="let question of questions">
+      <p><strong>{{ question.number }}. {{ question.text }}</strong></p>
+
+      <!-- Radio DA/NE -->
+      <mat-radio-group *ngIf="question.type === 'radio'" [(ngModel)]="question.answer">
+        <mat-radio-button [value]="true">Da</mat-radio-button>
+        <mat-radio-button [value]="false">Ne</mat-radio-button>
+      </mat-radio-group>
+
+      <!-- Checkbox -->
+      <div *ngIf="question.type === 'checkbox'">
+        <div *ngFor="let option of question.options">
+          <mat-checkbox [(ngModel)]="option.value">{{ option.label }}</mat-checkbox>
+        </div>
+      </div>
+
+      <!-- Ocjena 1-5 -->
+      <div *ngIf="question.type === 'rating_1_5'">
+        <mat-radio-group [(ngModel)]="question.answer">
+          <mat-radio-button *ngFor="let opt of [1,2,3,4,5]" [value]="opt">{{ opt }}</mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field *ngIf="question.answer === 1" appearance="outline">
+          <input matInput [(ngModel)]="question.comment" placeholder="Molimo pojasnite zašto ste dali ocjenu 1" required />
+        </mat-form-field>
+      </div>
+
+      <!-- Tekstualno pitanje -->
+      <mat-form-field *ngIf="question.type !== 'radio' && question.type !== 'checkbox' && question.type !== 'rating_1_5'" appearance="outline">
+        <input matInput [(ngModel)]="question.answer" placeholder="Vaš odgovor" />
+      </mat-form-field>
+
+      <hr />
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Pošalji odgovore</button>
+  </mat-card-actions>
+</mat-card>

@@ -16,7 +16,7 @@ interface QuestionGroup {
 })
 export class HomePageComponent {
   @Input() questionGroups: QuestionGroup[] = [];
-  @Output() select = new EventEmitter<number>();
+  @Output() select = new EventEmitter<{ id: number, mode: 'edit' }>();
   @Output() add = new EventEmitter<void>();
 
   searchTerm: string = '';
